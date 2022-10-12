@@ -8,25 +8,31 @@ import org.springframework.web.bind.annotation.*;
 import com.usa.mintic.ciclo3.reto3.Servicies.scoreServicies;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/Score")
+@RequestMapping(value="/api/Score")
 public class scoreController {
     @Autowired
     scoreServicies scoreServicies;
-    @GetMapping("/all")
+    @GetMapping(value="/all")
     public List<Score> getAll(){
         return scoreServicies.getAll();
     }
-    @PostMapping("/save")
+
+    @GetMapping(value = "/{id}")
+    public Optional<Score> getScore(@PathVariable("id") int scoreId){
+        return scoreServicies.getScore(scoreId);
+    }
+    @PostMapping(value="/save")
     @ResponseStatus(HttpStatus.CREATED)
     public Score save(@RequestBody Score p){
         return scoreServicies.save(p);
     }
-    @PutMapping("/update")
+    @PutMapping(value="/update")
     public Score update (@RequestBody Score score) {return scoreServicies.update(score);
     }
-    @DeleteMapping("/{id}")
+    @DeleteMapping(value="/{id}")
     public boolean delete (@PathVariable("id")int carId){ return scoreServicies.delete(carId);
     }
 }

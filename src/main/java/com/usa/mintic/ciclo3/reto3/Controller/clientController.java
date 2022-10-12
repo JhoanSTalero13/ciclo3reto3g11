@@ -7,25 +7,31 @@ import org.springframework.web.bind.annotation.*;
 import com.usa.mintic.ciclo3.reto3.Servicies.clientServicies;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/Client")
+@RequestMapping(value ="/api/Client")
 public class clientController {
     @Autowired
     clientServicies clientServicies;
-    @GetMapping("/all")
+    @GetMapping(value ="/all")
     public List<Client> getAll(){
         return clientServicies.getAll();
     }
-    @PostMapping("/save")
+    @GetMapping(value = "/{id}")
+    public Optional<Client> getCliente(@PathVariable("id") int clientId){
+        return clientServicies.getClient(clientId);
+    }
+
+    @PostMapping(value = "/save")
     @ResponseStatus(HttpStatus.CREATED)
     public Client save(@RequestBody  Client p){
         return clientServicies.save(p);
     }
-    @PutMapping("/update")
+    @PutMapping(value="/update")
     public Client update (@RequestBody Client client) {return clientServicies.update(client);
     }
-    @DeleteMapping("/{id}")
+    @DeleteMapping(value="/{id}")
     public boolean delete (@PathVariable("id")int carId){ return clientServicies.delete(carId);
     }
 }

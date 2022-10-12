@@ -8,26 +8,32 @@ import org.springframework.web.bind.annotation.*;
 import com.usa.mintic.ciclo3.reto3.Servicies.cabinServicies;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/Cabin")
+@RequestMapping(value="/api/Cabin")
 public class cabinController {
     @Autowired
     cabinServicies cabinServicies;
 
-    @GetMapping("/all")
+    @GetMapping(value="/all")
     public List<Cabin> getAll(){
         return cabinServicies.getAll();
     }
-    @PostMapping("/save")
+
+    @GetMapping(value = "/{id}")
+    public Optional<Cabin> getCabin(@PathVariable("id") int cabinId){
+        return cabinServicies.getCabin(cabinId);
+    }
+    @PostMapping(value="/save")
     @ResponseStatus(HttpStatus.CREATED)
     public Cabin save(@RequestBody  Cabin p){
         return cabinServicies.save(p);
     }
-    @PutMapping("/update")
+    @PutMapping(value="/update")
     public Cabin update (@RequestBody Cabin cabin) {return cabinServicies.update(cabin);
     }
-    @DeleteMapping("/{id}")
+    @DeleteMapping(value="/{id}")
     public boolean delete (@PathVariable("id")int carId){ return cabinServicies.delete(carId);
     }
 }
