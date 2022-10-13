@@ -12,14 +12,14 @@ import java.util.Optional;
 public class reservationController {
     reservationServicies reservationServicies;
 
-    @GetMapping(value="/all")
+    @GetMapping(value = "/all")
     public List<Reservation> getAll(){
         return reservationServicies.getAll();
     }
 
     @GetMapping(value = "/{id}")
-    public Optional<Reservation> getReservation(@PathVariable("id") int reserId){
-        return reservationServicies.getReservation(reserId);
+    public Optional<Reservation> getReservation(@PathVariable("id") int reservationId){
+        return reservationServicies.getReservation(reservationId);
     }
     @PostMapping(value="/save")
     @ResponseStatus(HttpStatus.CREATED)
